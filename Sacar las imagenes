@@ -11,7 +11,7 @@ while (cap.isOpened()):
     #gray_effect = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     if ret == False:
         break
-    cv2.imwrite('myphotos' + str(img_index) + '.png', frame)
+    cv2.imwrite('Frame' + str(img_index) + '.png', frame)
     img_index += 1
 
 cap.release()
