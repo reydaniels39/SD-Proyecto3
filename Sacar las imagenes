@@ -2,6 +2,7 @@
 import cv2
 
 video_path = 'C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\video.mp4'
+frame_path = 'C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_'
 cap = cv2.VideoCapture(video_path)
 
 img_index = 0
@@ -11,7 +12,7 @@ while (cap.isOpened()):
     #gray_effect = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     if ret == False:
         break
-    cv2.imwrite('Frame' + str(img_index) + '.png', frame)
+    cv2.imwrite(frame_path + str(img_index) + '.png', frame)
     img_index += 1
 
 cap.release()
