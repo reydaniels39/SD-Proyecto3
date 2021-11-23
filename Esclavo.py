@@ -37,9 +37,24 @@ for x in range(0,29):
     img_index += 1
 cv2.destroyAllWindows()
 
-# #Direccion de donde sacamos la imagen
-# imagen = cv2.imread('C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_1.png')
-# #Convertimos a escala de grises
-# gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-# #Guardamos la imagen
-# cv2.imwrite('C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\' + 'imagen' + '.png', gris)
+##### Se envían las imagenes modificadas
+tiempo3 = 0
+while tiempo3 != 100:
+    tiempo3 +=1
+
+img_index = numIni
+for x in range(0,29):
+    tiempo2 = 0
+    fotograma = open('./FramesModificados/Frame_' + str(img_index) + '.png', 'rb')
+    fotograma_data = fotograma.read(1024)
+    while fotograma_data:
+        tiempo = 0
+        client.send(fotograma_data)
+        while tiempo != 150:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
+            tiempo +=1
+        fotograma_data = fotograma.read(1024)
+    fotograma.close()
+    client.send('end'.encode())
+    while tiempo2 != 150:
+        tiempo2 +=1
+    img_index += 1

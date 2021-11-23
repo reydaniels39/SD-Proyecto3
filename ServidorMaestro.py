@@ -22,18 +22,24 @@ def slave(connection, numIni, nombre):
         while fotograma_data:
             tiempo = 0
             connection.send(fotograma_data)
-            while tiempo != 125:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
+            while tiempo != 150:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
                 tiempo +=1
             fotograma_data = fotograma.read(1024)
         fotograma.close()
         connection.send('end'.encode())
-        while tiempo2 != 125:
+        while tiempo2 != 150:
             tiempo2 +=1
         img_index += 1
 
-    while True:
-        data = connection.recv(1024)
-    connection.close()
+    img_index = numIni
+    for x in range(0,29):
+        file = open('./FramesRModificados/Frame_' + str(img_index) + '.png', 'wb')
+        file_part = client.recv(1024)
+        while file_part != 'end'.encode():
+            file.write(file_part)
+            file_part = client.recv(1024)
+        file.close()
+        img_index += 1
     
 
 slave1_socket, slave1_address = server.accept()
@@ -82,14 +88,14 @@ def clienteHilo(client_socket, nombre):
     slave2.start()
     slave3.start()
 
-
     continueInput = input("Presiona cuando se termine de procesar")
+
     #--------------Hacer el video--------------
     img_array = []
 
     img_index = 0
     for x in range(0,87):
-        path = './FramesModificados/Frame_' + str(img_index) + '.png'    
+        path = './FramesRModificados/Frame_' + str(img_index) + '.png'    
         img = cv2.imread(path)
         alto, ancho, channels= img.shape
         img_array.append(img)
