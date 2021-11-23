@@ -3,7 +3,7 @@ import socket
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.bind(('localhost', 1003))
+client.bind(('localhost', 1000))
 client.connect(('localhost', 1002))
 
 # #Aquí enviamos la imagen encriptada
