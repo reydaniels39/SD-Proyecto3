@@ -2,11 +2,29 @@ import socket
 import cv2
 import numpy as np
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.bind(('localhost', 1002)) #192.168.1.252
-server.listen()
+
+slaves = []
+
+while True:
+    data, address = server.recvfrom(128)
+
+    print('Esclavo conectado: "{}"'.format(data.decode()) + ' desde: {}.'.format(address))
+    slaves.append(address)
+
+    server.sendto(b'Hecho', address)
+
+    if len(slaves) == 3:
+        print('')
+        print('Conectados todos los esclavos')
+        print('')
+        break
 
 print('Esperando')
+
+cData, cAddress = server.recvfrom(128)
+print('Cliente Conectado')
 
 client_socket, client_address = server.accept()
 #---------------------------------------------
@@ -48,7 +66,7 @@ cv2.destroyAllWindows()
 img_array = []
 
 img_index = 0
-for x  in range(0,40):
+for x  in range(0,87):
     path = './FramesModificados/Frame_' + str(img_index) + '.png'    
     img = cv2.imread(path)
     alto, ancho, channels= img.shape
