@@ -27,7 +27,30 @@ while True:
         print('========= Registro correcto, esperando datos del otro Cliente... =========')
         print('')
         break
-    
+
+        
+#Cambia el color
+def color(img_cont):
+    #Direccion de donde sacamos la imagen
+    ruta = 'C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_'
+    imagen = cv2.imread(ruta + str(img_cont) + '.png')
+    #Convertimos a escala de grises
+    gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+    #Guardamos la imagen
+    cv2.imwrite(ruta + str(img_cont) + '.png', gris)
+
+print('Iniciando el cambio de color')
+threads = []
+img_cont = 0
+for _ in range(p):
+    t = threading.Thread(target= color, args=[img_cont])
+    t.start()
+    threads.append(t)
+    img_cont += 1
+
+for thread in threads:
+    thread.join()
+print('Finalizado cambio de color')
 
 # #Direccion de donde sacamos la imagen
 # imagen = cv2.imread('C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_1.png')
