@@ -38,9 +38,7 @@ for x in range(0,29):
 cv2.destroyAllWindows()
 
 ##### Se envían las imagenes modificadas
-tiempo3 = 0
-while tiempo3 != 100:
-    tiempo3 +=1
+continueInput = input("Presiona cuando se termine de procesar")
 
 img_index = numIni
 for x in range(0,29):

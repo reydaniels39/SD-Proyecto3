@@ -31,13 +31,17 @@ def slave(connection, numIni, nombre):
             tiempo2 +=1
         img_index += 1
 
+    # tiempo3 = 0
+    # while tiempo3 != 30:
+    #     tiempo3 +=1
+
     img_index = numIni
     for x in range(0,29):
         file = open('./FramesRModificados/Frame_' + str(img_index) + '.png', 'wb')
-        file_part = client.recv(1024)
+        file_part = connection.recv(1024)
         while file_part != 'end'.encode():
             file.write(file_part)
-            file_part = client.recv(1024)
+            file_part = connection.recv(1024)
         file.close()
         img_index += 1
     
