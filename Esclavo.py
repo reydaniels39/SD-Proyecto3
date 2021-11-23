@@ -23,6 +23,20 @@ for x in range(0,29):
     file.close()
     img_index += 1
 
+tiempo = 0
+while tiempo != 50:
+    tiempo += 1
+
+img_index = numIni
+for x in range(0,29):
+    frame_path = './FramesRecibidos/Frame_'
+    frame_gris = './FramesModificados/Frame_'
+    imagen = cv2.imread(frame_path+str(img_index)+'.png')
+    gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+    cv2.imwrite(frame_gris + str(img_index) + '.png', gris)
+    img_index += 1
+cv2.destroyAllWindows()
+
 # #Direccion de donde sacamos la imagen
 # imagen = cv2.imread('C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_1.png')
 # #Convertimos a escala de grises

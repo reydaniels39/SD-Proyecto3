@@ -11,7 +11,7 @@ print('Esperando')
 
 def slave(connection, numIni, nombre):
     tiempo3 = 0
-    while tiempo3 != 50:
+    while tiempo3 != 75:
         tiempo3 +=1
     connection.send(str(numIni).encode())
     img_index = numIni
@@ -22,12 +22,12 @@ def slave(connection, numIni, nombre):
         while fotograma_data:
             tiempo = 0
             connection.send(fotograma_data)
-            while tiempo != 75:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
+            while tiempo != 100:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
                 tiempo +=1
             fotograma_data = fotograma.read(1024)
         fotograma.close()
         connection.send('end'.encode())
-        while tiempo2 != 75:
+        while tiempo2 != 100:
             tiempo2 +=1
         img_index += 1
 
@@ -65,7 +65,6 @@ def clienteHilo(client_socket, nombre):
     #Funcion del video
     video_path = './archivos/video_cop.mp4'
     frame_path = './Frames/Frame_'
-    frame_gris = './FramesModificados/Frame_'
     cap = cv2.VideoCapture(video_path)
 
     #Obteniendo fotogramas del video
@@ -75,9 +74,6 @@ def clienteHilo(client_socket, nombre):
         if ret == False:
             break
         cv2.imwrite(frame_path + str(img_index) + '.png', frame)
-        imagen = cv2.imread(frame_path+str(img_index)+'.png')
-        gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite(frame_gris + str(img_index) + '.png', gris)
         img_index += 1
     cap.release()
     cv2.destroyAllWindows()
@@ -86,17 +82,8 @@ def clienteHilo(client_socket, nombre):
     slave2.start()
     slave3.start()
 
-        #imagen = cv2.imread(frame_path+str(img_index)+'.png')
-        #gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-        #cv2.imwrite(frame_gris + str(img_index) + '.png', gris)
-        #img_index += 1
-    #cap.release()
-    #cv2.destroyAllWindows()
 
-    # slave1.start()
-    # slave2.start()
-    # slave3.start()
-
+    continueInput = input("Presiona cuando se termine de procesar")
     #--------------Hacer el video--------------
     img_array = []
 
