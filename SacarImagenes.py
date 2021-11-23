@@ -4,7 +4,7 @@ import cv2
 video_path = 'C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\video.mp4'
 frame_path = 'C:\\Users\\juan2\\Documents\\Sistemas Distribuidos\\Video\\Frames\\Frame_'
 cap = cv2.VideoCapture(video_path)
-
+##
 img_index = 0
 while (cap.isOpened()):
     ret, frame = cap.read()
