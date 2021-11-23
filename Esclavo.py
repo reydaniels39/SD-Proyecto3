@@ -24,7 +24,7 @@ for x in range(0,29):
     img_index += 1
 
 tiempo = 0
-while tiempo != 50:
+while tiempo != 100:
     tiempo += 1
 
 img_index = numIni

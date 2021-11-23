@@ -11,7 +11,7 @@ print('Esperando')
 
 def slave(connection, numIni, nombre):
     tiempo3 = 0
-    while tiempo3 != 75:
+    while tiempo3 != 50:
         tiempo3 +=1
     connection.send(str(numIni).encode())
     img_index = numIni
@@ -22,12 +22,12 @@ def slave(connection, numIni, nombre):
         while fotograma_data:
             tiempo = 0
             connection.send(fotograma_data)
-            while tiempo != 100:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
+            while tiempo != 125:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
                 tiempo +=1
             fotograma_data = fotograma.read(1024)
         fotograma.close()
         connection.send('end'.encode())
-        while tiempo2 != 100:
+        while tiempo2 != 125:
             tiempo2 +=1
         img_index += 1
 
