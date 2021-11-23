@@ -48,11 +48,11 @@ for x in range(0,29):
     while fotograma_data:
         tiempo = 0
         client.send(fotograma_data)
-        while tiempo != 150:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
-            tiempo +=1
         fotograma_data = fotograma.read(1024)
+        while tiempo != 200:                             #Tiempo entre cada envío de cada paquete para evitar corrupción de paquetes
+            tiempo +=1
     fotograma.close()
     client.send('end'.encode())
-    while tiempo2 != 150:
+    while tiempo2 != 200:
         tiempo2 +=1
     img_index += 1
